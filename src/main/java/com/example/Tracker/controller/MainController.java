@@ -28,6 +28,7 @@ public class MainController {
     public String getLoggedInUser(Principal principal){
         return principal.getName();
     }
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> listOfUser = userService.getAllUser();

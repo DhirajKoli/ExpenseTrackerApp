@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,5 +25,13 @@ public class UserService {
     public User saveUser(User user){
         user.setEncryPassword(passwordEncoder.encode(user.getEncryPassword()));
         return userRepository.save(user);
+    }
+
+    public User getUser(String username){
+        Optional<User> optionalUser = userRepository.findByEmail(username);
+        if(optionalUser.isPresent())
+            return optionalUser.get();
+        else
+            throw new RuntimeException("User not found!!");
     }
 }
