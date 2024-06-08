@@ -18,6 +18,7 @@ public class SubCategory {
 
     private String name;
 
-    @ManyToOne
-    private Category category;
+//    @ManyToOne
+//    @JoinColumn(name="category_id", nullable=false)
+//    private Category category;
 }

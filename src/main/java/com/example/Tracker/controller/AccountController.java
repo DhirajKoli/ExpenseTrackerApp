@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/apps/accounts")
@@ -33,5 +32,10 @@ public class AccountController {
     public ResponseEntity<Account> createAccount(@RequestBody AccountDto accountDto, Principal principal){
         Account account = accountService.createAccount(accountDto,principal.getName());
         return new ResponseEntity<>(account,HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Account>> getUsersAccounts(@PathVariable("userId") Long userId){
+        return new ResponseEntity<>(accountService.getUserAccounts(userId), HttpStatus.OK);
     }
 }

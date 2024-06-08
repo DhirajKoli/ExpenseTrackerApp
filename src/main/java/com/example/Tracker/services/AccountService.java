@@ -55,4 +55,13 @@ public class AccountService {
         accountList.forEach(account -> account.setUser(null));
         return accountList;
     }
+
+    public List<Account> getUserAccounts(Long userId) {
+        User user = userService.getUserById(userId);
+
+        List<Account> accountList = accountRepository.findAllAccountsByUser(user);
+
+        accountList.forEach(account -> account.setUser(null));
+        return accountList;
+    }
 }

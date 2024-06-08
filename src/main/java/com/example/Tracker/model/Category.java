@@ -3,6 +3,8 @@ package com.example.Tracker.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,4 +20,11 @@ public class Category {
 
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="category_id", referencedColumnName = "id")
+    private List<SubCategory> subCategories;
+
+    public void addSubcategory(SubCategory subCategory){
+        this.subCategories.add(subCategory);
+    }
 }
