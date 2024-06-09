@@ -1,7 +1,6 @@
-package com.example.Tracker.model;
+package com.example.Tracker.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -13,27 +12,15 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity
-@Table(name = "records")
-public class Record {
+public class RecordDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String amount;
 
-    private BigDecimal amount;
+    private Long fromAccountId;
 
-    @ManyToOne
-    private Account fromAccount;
+    private Long toAccountId;
 
-    @ManyToOne
-    private Account toAccount;
-
-    @ManyToOne
-    private SubCategory subCategory;
-
-    @ManyToOne
-    private User user;
+    private Long subCategoryId;
 
     private String type;
 
@@ -42,4 +29,5 @@ public class Record {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "H:mm")
     private LocalTime time;
+
 }

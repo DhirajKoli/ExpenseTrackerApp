@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class AccountDto {
-    private Long balance;
+    private String balance;
 
     private String name;
 }

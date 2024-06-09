@@ -3,6 +3,8 @@ package com.example.Tracker.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class Account {
 
     private String name;
 
-    private Long balance;
+    private BigDecimal balance;
 
     @ManyToOne
     private User user;

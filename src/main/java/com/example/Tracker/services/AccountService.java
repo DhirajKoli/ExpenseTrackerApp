@@ -8,6 +8,7 @@ import com.example.Tracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class AccountService {
     public Account createAccount(AccountDto accountDto,String username){
         Account account = new Account();
         account.setName(accountDto.getName());
-        account.setBalance(accountDto.getBalance());
+        account.setBalance(new BigDecimal(accountDto.getBalance()));
         account.setUser(userService.getUser(username));
         Account newAccount = accountRepository.save(account);
         newAccount.setUser(null);
