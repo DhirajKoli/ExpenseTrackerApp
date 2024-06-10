@@ -108,4 +108,20 @@ public class RecordService {
             throw new RuntimeException("User not Found !!");
         return recordRepository.findByUser(optionalUser.get());
     }
+
+    public List<Record> getAllRecordsByUser(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(!optionalUser.isPresent())
+            throw new RuntimeException("User not Found !!");
+        return recordRepository.findByUser(optionalUser.get());
+    }
+
+    public List<Record> getAllRecordsByAccount(Long accountId) {
+        Optional<Account> optionalAccount = accountRepository.findById(accountId);
+        if(!optionalAccount.isPresent())
+            throw new RuntimeException("To Account not Found !!");
+        List<Record> allRecordsByAccount = recordRepository.findByFromAccount(optionalAccount.get());
+        allRecordsByAccount.addAll(recordRepository.findByToAccount(optionalAccount.get()));
+        return allRecordsByAccount;
+    }
 }

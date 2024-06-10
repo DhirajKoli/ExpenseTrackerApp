@@ -24,12 +24,22 @@ public class RecordController {
     }
 
     @GetMapping("/{recordId}")
-    public ResponseEntity<Record> getRecord(@PathVariable("recordId") Long recordId ){
+    public ResponseEntity<Record> getRecord(@PathVariable("recordId") Long recordId){
         return new ResponseEntity<>(recordService.getRecord(recordId), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Record>> getAllRecordsByLoggedUser(Principal principal){
         return new ResponseEntity<>(recordService.getAllRecordsByLoggedUser(principal.getName()), HttpStatus.OK);
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<List<Record>> getAllRecordsByUser(@PathVariable("userId") Long userId){
+        return new ResponseEntity<>(recordService.getAllRecordsByUser(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/accounts/{accountId}")
+    public ResponseEntity<List<Record>> getAllRecordsByAccount(@PathVariable("accountId") Long accountId){
+        return new ResponseEntity<>(recordService.getAllRecordsByAccount(accountId), HttpStatus.OK);
     }
 }
