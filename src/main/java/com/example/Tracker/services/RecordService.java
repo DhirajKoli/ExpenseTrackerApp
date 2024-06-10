@@ -69,14 +69,15 @@ public class RecordService {
             optionalFromAccount = accountRepository.findById(recordDto.getFromAccountId());
             if(!optionalFromAccount.isPresent())
                 throw new RuntimeException("From Account not Found !!");
-            fromAccount = optionalFromAccount.get();
-            fromAccount.setBalance( fromAccount.getBalance().add(new BigDecimal(recordDto.getAmount())) );
-            record.setUser(fromAccount.getUser());
-            record.setFromAccount(accountRepository.save(fromAccount));
-
             optionalToAccount = accountRepository.findById(recordDto.getToAccountId());
             if(!optionalToAccount.isPresent())
                 throw new RuntimeException("To Account not Found !!");
+
+            fromAccount = optionalFromAccount.get();
+            fromAccount.setBalance( fromAccount.getBalance().subtract(new BigDecimal(recordDto.getAmount())) );
+            record.setUser(fromAccount.getUser());
+            record.setFromAccount(accountRepository.save(fromAccount));
+
             toAccount = optionalToAccount.get();
             toAccount.setBalance( toAccount.getBalance().add(new BigDecimal(recordDto.getAmount())) );
             record.setUser(toAccount.getUser());
