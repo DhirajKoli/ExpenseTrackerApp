@@ -124,4 +124,43 @@ public class RecordService {
         allRecordsByAccount.addAll(recordRepository.findByToAccount(optionalAccount.get()));
         return allRecordsByAccount;
     }
+
+    public Record deleteRecord(Long recordId) {
+        Optional<Record> optionalRecord = recordRepository.findById(recordId);
+        if(!optionalRecord.isPresent())
+            throw new RuntimeException("Record Not Found!!");
+        Record record = optionalRecord.get();
+
+        if(record.getType().equals("Expense")){
+
+            record.getFromAccount()
+                    .setBalance( record.getFromAccount().getBalance()
+                            .subtract(record.getAmount()) );
+            record.setFromAccount(accountRepository.save(record.getFromAccount()));
+
+        } else if (record.getType().equals("Income")) {
+
+            record.getToAccount()
+                    .setBalance( record.getToAccount().getBalance()
+                            .subtract(record.getAmount()) );
+            record.setToAccount(accountRepository.save(record.getToAccount()));
+
+        } else if (record.getType().equals("Transfer")) {
+
+            record.getFromAccount()
+                    .setBalance( record.getFromAccount().getBalance()
+                            .add(record.getAmount()) );
+            record.setFromAccount(accountRepository.save(record.getFromAccount()));
+
+            record.getToAccount()
+                    .setBalance( record.getToAccount().getBalance()
+                            .subtract(record.getAmount()) );
+            record.setToAccount(accountRepository.save(record.getToAccount()));
+
+        } else {
+            throw new RuntimeException("Record Type Invalid !!");
+        }
+        recordRepository.delete(record);
+        return record;
+    }
 }

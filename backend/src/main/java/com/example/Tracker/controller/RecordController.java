@@ -42,4 +42,10 @@ public class RecordController {
     public ResponseEntity<List<Record>> getAllRecordsByAccount(@PathVariable("accountId") Long accountId){
         return new ResponseEntity<>(recordService.getAllRecordsByAccount(accountId), HttpStatus.OK);
     }
+
+    @DeleteMapping("/{recordId}")
+    public ResponseEntity<Record> deleteRecord(@PathVariable("recordId") Long recordId){
+        return new ResponseEntity<>(recordService.deleteRecord(recordId),HttpStatus.OK);
+    }
+
 }
